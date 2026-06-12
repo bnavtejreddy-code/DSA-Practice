@@ -212,3 +212,21 @@ public class Day3Collections {
 
 //     }
 // }
+// ============ Element occurring more than [n/3] times ==============
+        // Map<Integer, Integer> hashMap = new HashMap<>();
+        // int[] arr = {1, 4, 1, 4, 2, 1, 7, 9, 1}; // {1:4, 4:2, 2:1. 7:1, 9:1}
+        // int n = arr.length; // 9
+        // for (int i = 0; i < arr.length; i++) {
+        //     if (hashMap.containsKey(arr[i])) {
+        //         hashMap.put(arr[i], hashMap.get(arr[i]) + 1);
+        //     } else {
+        //         hashMap.put(arr[i], 1);
+        //     }
+        // }
+        // for (Map.Entry<Integer, Integer> e : hashMap.entrySet()) {
+        //     if (e.getValue() >= (n / 3)) {
+        //         System.out.print(e.getKey() + " ");
+        //      }
+        // }
+//     }
+// }
