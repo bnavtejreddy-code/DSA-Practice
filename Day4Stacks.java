@@ -196,3 +196,236 @@ Output:
 5 10 10 -1 -1
 
 */
+/*
+
+=====================================================
+MONOTONIC STACK PATTERNS
+=====================================================
+
+1. Next Greater Element (NGE)
+2. Previous Greater Element (PGE)
+3. Next Smaller Element (NSE)
+4. Previous Smaller Element (PSE)
+5. Previous Smaller Index (PSI)
+6. Next Smaller Index (NSI)
+7. Largest Rectangle in Histogram
+
+-----------------------------------------------------
+NEXT GREATER ELEMENT
+-----------------------------------------------------
+
+public static int[] nextGreaterElement(Stack<Integer> stk,
+                                       int[] arr,
+                                       int[] res){
+
+    stk.clear();
+
+    for(int i = arr.length - 1; i >= 0; i--){
+
+        while(!stk.isEmpty() &&
+              stk.peek() <= arr[i]){
+            stk.pop();
+        }
+
+        if(!stk.isEmpty()){
+            res[i] = stk.peek();
+        }
+
+        stk.push(arr[i]);
+    }
+
+    return res;
+}
+
+-----------------------------------------------------
+PREVIOUS GREATER ELEMENT
+-----------------------------------------------------
+
+public static int[] previousGreaterElement(Stack<Integer> stk,
+                                           int[] arr,
+                                           int[] res){
+
+    stk.clear();
+
+    for(int i = 0; i < arr.length; i++){
+
+        while(!stk.isEmpty() &&
+              stk.peek() <= arr[i]){
+            stk.pop();
+        }
+
+        if(!stk.isEmpty()){
+            res[i] = stk.peek();
+        }
+
+        stk.push(arr[i]);
+    }
+
+    return res;
+}
+
+-----------------------------------------------------
+NEXT SMALLER ELEMENT
+-----------------------------------------------------
+
+public static int[] nextSmallerElement(Stack<Integer> stk,
+                                       int[] arr,
+                                       int[] res){
+
+    stk.clear();
+
+    for(int i = arr.length - 1; i >= 0; i--){
+
+        while(!stk.isEmpty() &&
+              stk.peek() >= arr[i]){
+            stk.pop();
+        }
+
+        if(!stk.isEmpty()){
+            res[i] = stk.peek();
+        }
+
+        stk.push(arr[i]);
+    }
+
+    return res;
+}
+
+-----------------------------------------------------
+PREVIOUS SMALLER ELEMENT
+-----------------------------------------------------
+
+public static int[] previousSmallerElement(Stack<Integer> stk,
+                                           int[] arr,
+                                           int[] res){
+
+    stk.clear();
+
+    for(int i = 0; i < arr.length; i++){
+
+        while(!stk.isEmpty() &&
+              stk.peek() >= arr[i]){
+            stk.pop();
+        }
+
+        if(!stk.isEmpty()){
+            res[i] = stk.peek();
+        }
+
+        stk.push(arr[i]);
+    }
+
+    return res;
+}
+
+-----------------------------------------------------
+PREVIOUS SMALLER INDEX
+-----------------------------------------------------
+
+public static int[] previousSmallerIndex(Stack<Integer> stk,
+                                         int[] arr,
+                                         int[] res){
+
+    stk.clear();
+
+    for(int i = 0; i < arr.length; i++){
+
+        while(!stk.isEmpty() &&
+              arr[stk.peek()] >= arr[i]){
+            stk.pop();
+        }
+
+        if(!stk.isEmpty()){
+            res[i] = stk.peek();
+        }
+
+        stk.push(i);
+    }
+
+    return res;
+}
+
+-----------------------------------------------------
+NEXT SMALLER INDEX
+-----------------------------------------------------
+
+public static int[] nextSmallerIndex(Stack<Integer> stk,
+                                     int[] arr,
+                                     int[] res){
+
+    stk.clear();
+
+    for(int i = arr.length - 1; i >= 0; i--){
+
+        while(!stk.isEmpty() &&
+              arr[stk.peek()] >= arr[i]){
+            stk.pop();
+        }
+
+        if(!stk.isEmpty()){
+            res[i] = stk.peek();
+        }
+
+        stk.push(i);
+    }
+
+    return res;
+}
+
+-----------------------------------------------------
+LARGEST RECTANGLE IN HISTOGRAM
+-----------------------------------------------------
+
+Input:
+arr = {2,1,5,6,2,3}
+
+Expected Output:
+10
+
+Code:
+
+int[] arr = {2,1,5,6,2,3};
+
+int n = arr.length;
+
+Stack<Integer> stk = new Stack<>();
+
+int[] leftRes = new int[n];
+int[] rightRes = new int[n];
+
+Arrays.fill(leftRes, -1);
+Arrays.fill(rightRes, n);
+
+leftRes = previousSmallerIndex(stk, arr, leftRes);
+rightRes = nextSmallerIndex(stk, arr, rightRes);
+
+int maxArea = 0;
+
+for(int i = 0; i < n; i++){
+
+    int width = rightRes[i] - leftRes[i] - 1;
+
+    int area = arr[i] * width;
+
+    maxArea = Math.max(maxArea, area);
+}
+
+System.out.println(maxArea);
+
+-----------------------------------------------------
+MONOTONIC STACK CHEAT SHEET
+-----------------------------------------------------
+
+Next Greater       -> Traverse Right to Left
+Previous Greater   -> Traverse Left to Right
+
+Next Smaller       -> Traverse Right to Left
+Previous Smaller   -> Traverse Left to Right
+
+For INDEX problems:
+Push indices instead of values.
+
+For VALUE problems:
+Push values directly.
+
+*/
